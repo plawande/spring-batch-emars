@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/batchdb?createDatabaseIfNotExist=true&rewriteBatchedStatements=true #&profileSQL=true
+    username: root
+    password: Test1234
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        jdbc:
+          batch_size: 50
+        #order_inserts: true
+        generate_statistics: true
+    open-in-view: false
+  batch:
+    job:
+      enabled: false #prevents default triggering of the batch job by disabling default job launcher
+    initialize-schema: always #creates batch tables if they're not present
+
+#input: classpath:Emars_1k.csv
+input: classpath:Emars_50k.csv
+#input: classpath:Emars_250k.csv
+
+logging:
+  level:
+    com: error
+    org:
+      hibernate:
+        sql: debug
+#        type:
+#          descriptor:
+#            sql: trace
